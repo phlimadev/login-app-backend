@@ -1,6 +1,7 @@
 package com.example.login_app_backend.controllers;
 
 import com.example.login_app_backend.dtos.AuthenticateDTO;
+import com.example.login_app_backend.dtos.TokenDTO;
 import com.example.login_app_backend.services.AuthenticationService;
 import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +18,9 @@ public class AuthenticationController {
     private AuthenticationService authenticationService;
 
     @PostMapping("/login")
-    public ResponseEntity login(@RequestBody @Valid AuthenticateDTO data) {
-        authenticationService.login(data);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<TokenDTO> login(@RequestBody @Valid AuthenticateDTO data) {
+        TokenDTO token = authenticationService.login(data);
+        return ResponseEntity.ok(token);
     }
 
     @PostMapping("/register")
